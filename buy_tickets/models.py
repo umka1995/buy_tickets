@@ -5,11 +5,12 @@ from slugify import slugify
 User = get_user_model()
 
 class Category(models.Model):
+    
     title = models.CharField(max_length=60)
     slug = models.SlugField(max_length=60,primary_key=True,blank=True)
 
     def __str__(self):
-        return self.title
+        return f'{self.title}'
     
     def save(self,*args, **kwargs):
         if not self.slug:
@@ -23,7 +24,7 @@ class Airline(models.Model):
     
 
     def __str__(self):
-        return  f' {self.id} {self.title}'
+        return f'{self.title}'
     
     def save(self,*args, **kwargs):
         if not self.slug:
@@ -32,7 +33,6 @@ class Airline(models.Model):
 
 
 class AirTicket(models.Model):
-    passenger = models.ForeignKey(User,on_delete=models.CASCADE, related_name='airtickets',verbose_name='Пассажир')
     departure_city = models.CharField(max_length=50)
     arrival_city = models.CharField(max_length=50)
     departure_date = models.DateTimeField()
@@ -83,6 +83,17 @@ class Like(models.Model):
 
     def __str__(self):
         return f'Liked {self.airline} by {self.passenger.name}'
+    
+class Favorite(models.Model):
+    passenger = models.ForeignKey(User,on_delete=models.CASCADE,related_name='favorites')
+    airline = models.ForeignKey(Airline,on_delete=models.CASCADE,related_name='favorites')
+    is_favorited = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'favorited {self.airline} by {self.passenger.name}'
+
+
+
     
 
 

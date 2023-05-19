@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Category,AirTicket,Airline,Comment,Rating,Like
+from .models import Category,AirTicket,Airline,Comment,Rating,Like,Favorite
 from .serializer import CategorySerializer,AirTicketSerializer,AirLineSerializer,CommentCreateSerializer,RatingSerializer
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -9,6 +9,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import filters
 
+# from django.utils.decorators import method_decorator
+# from django.views.decorators.cache import cache_page
+# from django.views.decorators.vary import vary_on_cookie, vary_on_headers
 
 
 
@@ -31,7 +34,6 @@ class AirTicketViewSet(viewsets.ModelViewSet):
 class AirLinesViewSet(viewsets.ModelViewSet):
     queryset = Airline.objects.all()
     serializer_class = AirLineSerializer
-
 
     def get_permissions(self):
         if self.action in ['update', 'destroy', 'partial_update']:
@@ -60,17 +62,32 @@ class AirLinesViewSet(viewsets.ModelViewSet):
     
     @action(methods=['POST'], detail=True)
     def like(self, request, pk=None):
-        passenger = self.get_object()
+        airline = self.get_object()
         user = request.user
         try:
-            like = Like.objects.get(passenger=passenger,post=user)
+            like = Like.objects.get(passenger=user, airline=airline)
             like.delete()
             message = 'disliked'
         except Like.DoesNotExist:
-            like = Like.objects.create(passenger=passenger,post=user,is_liked =True)
+            like = Like.objects.create(passenger=user, airline=airline, is_liked =True)
             like.save()
             message='liked'
         return Response(message, status=201)
+    
+    @action(methods=['POST'], detail=True)
+    def favorite(self, request, pk=None):
+        airline = self.get_object()
+        user = request.user
+        try:
+            favorite = Favorite.objects.get(passenger=user, airline=airline)
+            favorite.delete()
+            message = 'disfavorited'
+        except Favorite.DoesNotExist:
+            favorite = Favorite.objects.create(passenger=user, airline=airline, is_favorited =True)
+            favorite.save()
+            message='favorited'
+        return Response(message, status=201)
+    
 
 
 
