@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from decouple import config
 import logging
+import os
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,7 +47,8 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'account',
-    'buy_tickets'
+    'buy_tickets',
+    'cacheops'
 ]
 
 MIDDLEWARE = [
@@ -171,3 +174,12 @@ LOGGING = {
         },
     },
 }
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR,'air_tickets/file_cache/')  # Путь к каталогу для хранения кэша в файле
+    }
+}
+

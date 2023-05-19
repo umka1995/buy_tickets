@@ -8,6 +8,7 @@ from .permissions import IsOwnerPermission, IsAdminOrActivePermission
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import filters
+from django.core.cache import cache
 
 
 
@@ -88,9 +89,5 @@ class CommentView(viewsets.ModelViewSet):
             self.permission_classes = [AllowAny]
         return super().get_permissions()
     
-
-
-
-
 
 

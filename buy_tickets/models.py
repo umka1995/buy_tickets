@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from slugify import slugify
+from django.core.cache import cache
+
 
 User = get_user_model()
 
