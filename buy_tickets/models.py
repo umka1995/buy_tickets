@@ -23,7 +23,7 @@ class Airline(models.Model):
     
 
     def __str__(self):
-        return  f' {self.id} {self.title}'
+        return  f'{self.title}'
     
     def save(self,*args, **kwargs):
         if not self.slug:
@@ -32,7 +32,7 @@ class Airline(models.Model):
 
 
 class AirTicket(models.Model):
-    passenger = models.ForeignKey(User,on_delete=models.CASCADE, related_name='airtickets',verbose_name='Пассажир')
+    # passenger = models.ForeignKey(User,on_delete=models.CASCADE, related_name='airtickets',verbose_name='Пассажир')
     departure_city = models.CharField(max_length=50)
     arrival_city = models.CharField(max_length=50)
     departure_date = models.DateTimeField()
@@ -44,19 +44,6 @@ class AirTicket(models.Model):
     def __str__(self):
         return f'{self.departure_city} {self.arrival_city}'
     
-
-# class BuyTickets(models.Model):
-#     flight = models.ForeignKey(AirTickets, on_delete=models.CASCADE)
-#     passenger = models.ForeignKey(User, on_delete=models.CASCADE)
-#     seat_number = models.PositiveIntegerField()
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
-#     paid = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return f'{self.flight} {self.user}'
-
-
-
     
 
 class Rating(models.Model):
@@ -85,8 +72,18 @@ class Like(models.Model):
         return f'Liked {self.airline} by {self.passenger.name}'
     
 
+    
 
 
 
 
 
+# class BuyTickets(models.Model):
+#     flight = models.ForeignKey(AirTickets, on_delete=models.CASCADE)
+#     passenger = models.ForeignKey(User, on_delete=models.CASCADE)
+#     seat_number = models.PositiveIntegerField()
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+#     paid = models.BooleanField(default=False)
+
+#     def __str__(self):
+#         return f'{self.flight} {self.user}'

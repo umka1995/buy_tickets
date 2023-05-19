@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Category,AirTicket,Airline,Comment,Rating,Like
 from .serializer import CategorySerializer,AirTicketSerializer,AirLineSerializer,CommentCreateSerializer,RatingSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, views
 from rest_framework.decorators import action
 from .permissions import IsOwnerPermission, IsAdminOrActivePermission
 from rest_framework.permissions import AllowAny
@@ -87,5 +87,10 @@ class CommentView(viewsets.ModelViewSet):
         elif self.action in ['list', 'retrive']:
             self.permission_classes = [AllowAny]
         return super().get_permissions()
+    
+
+
+
+
 
 
