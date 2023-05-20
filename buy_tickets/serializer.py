@@ -37,15 +37,15 @@ class AirTicketSerializer(serializers.ModelSerializer):
         model = AirTicket
         fields = '__all__'
 
-    def validate(self, data):
-        departure_city = data.get('departure_city')
-        arrival_city = data.get('arrival_city')
-        departure_date = data.get('departure_date')
-        if AirTicket.objects.filter(departure_city=departure_city, arrival_city=arrival_city, departure_date=departure_date):
-            raise serializers.ValidationError(
-                'билет с указанными параметрами уже сущесвует '
-            )
-        return data
+    # def validate(self, data):
+    #     departure_city = data.get('departure_city')
+    #     arrival_city = data.get('arrival_city')
+    #     departure_date = data.get('departure_date')
+    #     if AirTicket.objects.filter(departure_city=departure_city, arrival_city=arrival_city, departure_date=departure_date):
+    #         raise serializers.ValidationError(
+    #             'билет с указанными параметрами уже сущесвует '
+    #         )
+    #     return data
     
     # def create(self, validated_data):
     #     request = self.context.get('request')

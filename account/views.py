@@ -4,9 +4,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 from .permissions import IsActivePermissions
-from .serializers import RegistrationSerializer, ActivationSerializer ,LoginSerializer ,ChangePasswordSerializer,ForgotPasswordSerializer,ForgotPasswordCompleteSerializer
+from .serializers import RegistrationSerializer, ActivationSerializer ,LoginSerializer ,ChangePasswordSerializer,ForgotPasswordSerializer,ForgotPasswordCompleteSerializer,UserSerializer
 
 class RegistrationView(APIView):
     def post(self,request):
@@ -56,7 +60,9 @@ class ForgotPasswordCompleteView(APIView):
         
 
 
-
+class UserView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 
 
