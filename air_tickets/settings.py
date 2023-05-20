@@ -149,6 +149,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
 
 LOGGING = {
     'version': 1,
@@ -175,3 +177,6 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'air_tickets/file_cache')  # Путь к каталогу для хранения кэша в файле
     }
 }
+
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"

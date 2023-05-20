@@ -62,12 +62,7 @@ class AirTicketSerializer(serializers.ModelSerializer):
     
     
 
-    # def validate_title(self, title):
-    #     if self.Meta.model.objects.filter(title=title).exists():
-    #         raise serializers.ValidationError(
-    #             'Такой билет уже куплен '
-    #         )
-    #     return title
+   
     
  
 

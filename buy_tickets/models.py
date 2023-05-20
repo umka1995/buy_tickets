@@ -45,19 +45,6 @@ class AirTicket(models.Model):
         return f'{self.departure_city} {self.arrival_city}'
     
 
-# class BuyTickets(models.Model):
-#     flight = models.ForeignKey(AirTickets, on_delete=models.CASCADE)
-#     passenger = models.ForeignKey(User, on_delete=models.CASCADE)
-#     seat_number = models.PositiveIntegerField()
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
-#     paid = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return f'{self.flight} {self.user}'
-
-
-
-    
 
 class Rating(models.Model):
     passenger = models.ForeignKey(User,on_delete=models.CASCADE,related_name='ratings')

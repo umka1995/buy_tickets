@@ -5,3 +5,6 @@ python-decouple
 Pillow
 python-slugify
 django-filter
+
+redis
+celery

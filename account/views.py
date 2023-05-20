@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 from django.contrib.auth import get_user_model
 
+
 User = get_user_model()
 
 from .permissions import IsActivePermissions
@@ -63,6 +64,9 @@ class ForgotPasswordCompleteView(APIView):
 class UserView(ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
+    
+    
 
 
 

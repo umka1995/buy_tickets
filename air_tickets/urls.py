@@ -32,5 +32,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/account/',include('account.urls')),
     path('api/v1/', include('buy_tickets.urls')),
-    path('docs/', schema_view.with_ui('swagger'))
+    path('docs/', schema_view.with_ui('swagger')),
+    path('api/v1/', include('mainapp.urls'))
  ]
