@@ -8,8 +8,10 @@ from .permissions import IsOwnerPermission, IsAdminOrActivePermission
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import filters
+from django.core import files
 
 from PIL import Image
+
 
 import logging
 
@@ -89,7 +91,6 @@ class AirLinesViewSet(viewsets.ModelViewSet):
             favorite = Favorite.objects.create(passenger=user, airline=airline, is_favorited =True)
             favorite.save()
             message='favorited'
-            logger.exception('An error occured')
         return Response(message, status=201)
     
     @action(['POST'], detail=True)

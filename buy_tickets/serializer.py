@@ -22,7 +22,7 @@ class AirLineSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['comments'] = instance.comments.count()
         representation['rating'] = RatingSerializer(Rating.objects.filter(airline=instance.pk), many=True).data
-        representation['favorites'] = instance.comments.count()
+        representation['favorites'] = instance.favorites.count()
         representation['likes_count'] = instance.likes.count()
         representation['rating'] = instance.ratings.aggregate(Avg('rating'))['rating__avg']
 
