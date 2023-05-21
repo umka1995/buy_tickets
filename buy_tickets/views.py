@@ -9,9 +9,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import filters
 
-# from django.utils.decorators import method_decorator
-# from django.views.decorators.cache import cache_page
-# from django.views.decorators.vary import vary_on_cookie, vary_on_headers
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -86,6 +87,7 @@ class AirLinesViewSet(viewsets.ModelViewSet):
             favorite = Favorite.objects.create(passenger=user, airline=airline, is_favorited =True)
             favorite.save()
             message='favorited'
+            logger.exception('An error occured')
         return Response(message, status=201)
     
 
