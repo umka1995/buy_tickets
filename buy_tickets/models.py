@@ -21,6 +21,7 @@ class Category(models.Model):
 class Airline(models.Model):
     title = models.CharField(max_length=50,primary_key=True,)
     slug = models.SlugField(max_length=60,blank=True)
+    image = models.ImageField(upload_to='airlines',blank=True)
     
 
     def __str__(self):

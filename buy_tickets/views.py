@@ -9,6 +9,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import filters
 
+from PIL import Image
+
 import logging
 
 
@@ -89,6 +91,23 @@ class AirLinesViewSet(viewsets.ModelViewSet):
             message='favorited'
             logger.exception('An error occured')
         return Response(message, status=201)
+    
+    @action(['POST'], detail=True)
+    def process_image(self, request, pk=None):
+        airline = self.get_object()
+
+        image_file = request.FILES.get('image')
+        if not image_file:
+            return Response('No image provided. Image processing skipped.', status=200)
+
+        # Открыть изображение с помощью Pillow
+        try:
+            image = Image.open(image_file)
+        except Exception as e:
+            logger.exception('An error occured')
+            return Response(str(e), status=400)
+        return Response('Image processed and saved', status=200)   
+
     
 
 
